@@ -1,5 +1,5 @@
 ID: bookstore
-_schema-version: '2.1'
+_schema-version: "2.1"
 parameters:
   deploy_mode: html5-repo
 version: 0.0.2
@@ -14,6 +14,9 @@ modules:
       - name: bookstore_html5_repo_runtime
       - name: portal_resources_bookstore
       - name: uaa_bookstore
+    properties:
+      TENANT_HOST_PATTERN: ^(.*)-${space}-bookstore-approuter.${default-domain}
+      SAP_JWT_TRUST_ACL: '[{"clientid":"*","identityzone":"sap-provisioning"}]'
   - name: bookstore_ui_deployer
     type: com.sap.html5.application-content
     path: bookstore_ui_deployer
@@ -23,7 +26,7 @@ modules:
       requires:
         - name: bookstore-ui
           artifacts:
-            - './*'
+            - "./*"
           target-path: resources/bookstore-ui
   - name: bookstore-launchpad
     type: com.sap.portal.content
@@ -31,7 +34,9 @@ modules:
     parameters:
       stack: cflinuxfs3
       memory: 128M
-      buildpack: 'https://github.com/cloudfoundry/nodejs-buildpack/releases/download/v1.6.39/nodejs-buildpack-cflinuxfs3-v1.6.39.zip'
+      buildpack: "https://github.com/cloudfoundry/nodejs-buildpack/releases/download/v1.6.39/nodejs-buildpack-cflinuxfs3-v1.6.39.zip"
+    properties:
+      TENANT_HOST_PATTERN: ^(.*)-${space}-bookstore-approuter.${default-domain}
     requires:
       - name: portal_resources_bookstore
       - name: uaa_bookstore
