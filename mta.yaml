@@ -14,6 +14,7 @@ modules:
       - name: bookstore_html5_repo_runtime
       - name: portal_resources_bookstore
       - name: uaa_bookstore
+      - name: bookstore_saas_registry
     properties:
       TENANT_HOST_PATTERN: ^(.*)-${space}-bookstore-approuter.${default-domain}
       SAP_JWT_TRUST_ACL: '[{"clientid":"*","identityzone":"sap-provisioning"}]'
@@ -42,6 +43,7 @@ modules:
       - name: uaa_bookstore
       - name: bookstore_html5_repo_host
       - name: bookstore_ui_deployer
+      - name: bookstore_saas_registry
   - name: bookstore-ui
     type: html5
     path: bookstore-ui
@@ -68,11 +70,6 @@ resources:
       service-plan: standard
       service: portal
     type: org.cloudfoundry.managed-service
-  - name: portal_resources_bookstore_2
-    parameters:
-      service-plan: standard
-      service: portal
-    type: org.cloudfoundry.managed-service
   - name: uaa_bookstore
     parameters:
       path: ./xs-security.json
@@ -84,3 +81,17 @@ resources:
       service-plan: lite
       service: destination
     type: org.cloudfoundry.managed-service
+  - name: bookstore_saas_registry
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: saas-registry
+      service-plan: application
+      config:
+        appId: bookstore-provider-fd1e4bd6
+        appName: bookstore-provider-${org}-${space}
+        appUrls:
+          onSubscription: https://${org}-${space}-bookstore-approuter.${default-domain}/callback/v1.0/tenants/{tenantId}
+          getDependencies: https://${org}-${space}-bookstore-approuter.${default-domain}/callback/v1.0/dependencies
+        category: Test Content Provider
+        description: This is Sascha's Awesome Bookstore = ${org}-${space}
+        displayName: Sascha's Bookstore
