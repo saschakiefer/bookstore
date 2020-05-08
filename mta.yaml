@@ -10,13 +10,14 @@ modules:
     parameters:
       disk-quota: 256M
       memory: 256M
+      route: devxorg-devxspace-bookstore-approuter.cfapps.sap.hana.ondemand.com
     requires:
       - name: bookstore_html5_repo_runtime
       - name: portal_resources_bookstore
       - name: uaa_bookstore
       - name: bookstore_saas_registry
     properties:
-      TENANT_HOST_PATTERN: ^(.*)-devxspace-bookstore-approuter.${default-domain}
+      TENANT_HOST_PATTERN: ^(.*)-bookstore-approuter.${default-domain}
       SAP_JWT_TRUST_ACL: '[{"clientid":"*","identityzone":"sap-provisioning"}]'
   - name: bookstore_ui_deployer
     type: com.sap.html5.application-content
@@ -37,7 +38,7 @@ modules:
       memory: 128M
       buildpack: "https://github.com/cloudfoundry/nodejs-buildpack/releases/download/v1.6.39/nodejs-buildpack-cflinuxfs3-v1.6.39.zip"
     properties:
-      TENANT_HOST_PATTERN: ^(.*)-devxspace-bookstore-approuter.${default-domain}
+      TENANT_HOST_PATTERN: ^(.*)-bookstore-approuter.${default-domain}
     requires:
       - name: portal_resources_bookstore
       - name: uaa_bookstore

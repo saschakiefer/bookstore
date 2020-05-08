@@ -3,7 +3,7 @@
 		<App id="app">
 			<pages>
 				<Page id="page" title="{i18n>title}">
-					<content><Text>Sascha's Awesome Bookstore</Text></content>
+					<content><Label text="Look around and find your next favorite book."></Label></content>
 				</Page>
 			</pages>
 		</App>
