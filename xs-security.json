@@ -1,5 +1,5 @@
 {
-  "xsappname": "bookstore",
+  "xsappname": "bookstore-provider",
   "tenant-mode": "shared",
   "description": "Security profile of called application",
   "scopes": [

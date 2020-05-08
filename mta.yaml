@@ -16,7 +16,7 @@ modules:
       - name: uaa_bookstore
       - name: bookstore_saas_registry
     properties:
-      TENANT_HOST_PATTERN: ^(.*)-${space}-bookstore-approuter.${default-domain}
+      TENANT_HOST_PATTERN: ^(.*)-devx-cf-space-bookstore-approuter.${default-domain}
       SAP_JWT_TRUST_ACL: '[{"clientid":"*","identityzone":"sap-provisioning"}]'
   - name: bookstore_ui_deployer
     type: com.sap.html5.application-content
@@ -37,7 +37,7 @@ modules:
       memory: 128M
       buildpack: "https://github.com/cloudfoundry/nodejs-buildpack/releases/download/v1.6.39/nodejs-buildpack-cflinuxfs3-v1.6.39.zip"
     properties:
-      TENANT_HOST_PATTERN: ^(.*)-${space}-bookstore-approuter.${default-domain}
+      TENANT_HOST_PATTERN: ^(.*)-devx-cf-space-bookstore-approuter.${default-domain}
     requires:
       - name: portal_resources_bookstore
       - name: uaa_bookstore
@@ -87,11 +87,10 @@ resources:
       service: saas-registry
       service-plan: application
       config:
-        appId: bookstore-provider-fd1e4bd6
-        appName: bookstore-provider-${org}-${space}
+        xsappname: bookstore-provider
         appUrls:
-          onSubscription: https://${org}-${space}-bookstore-approuter.${default-domain}/callback/v1.0/tenants/{tenantId}
-          getDependencies: https://${org}-${space}-bookstore-approuter.${default-domain}/callback/v1.0/dependencies
+          onSubscription: https://devx-cf-org-devx-cf-space-bookstore-approuter.${default-domain}/callback/v1.0/tenants/{tenantId}
+          getDependencies: https://devx-cf-org-devx-cf-space-bookstore-approuter.${default-domain}/callback/v1.0/dependencies
         category: Test Content Provider
-        description: This is Sascha's Awesome Bookstore = ${org}-${space}
+        description: This is Sascha's Awesome Bookstore = devx-cf-org-devx-cf-space
         displayName: Sascha's Bookstore
